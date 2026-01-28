@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Đơn Giản</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 16px 24px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    nav a {
+      color: #cbd5e1;
+      margin-right: 16px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: white;
+    }
+    main {
+      padding: 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 16px;
+      background: #e5e7eb;
+      font-size: 14px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Website Đơn Giản</h1>
+  <nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#about">Giới thiệu</a>
+    <a href="#contact">Liên hệ</a>
+  </nav>
+</header>
+
+<main>
+  <div class="card" id="home">
+    <h2>Chào mừng 👋</h2>
+    <p>Đây là một website HTML đơn giản, không cần đăng nhập, không backend.</p>
+    <button onclick="alert('Hello! Website đang hoạt động bình thường 😄')">Bấm thử</button>
+  </div>
+  <a href="/images/myw3schoolsimage.jpg" download>
+    <img src="/images/myw3schoolsimage.jpg" alt="W3Schools">
+  </a>
+  <div class="card" id="about">
+    <h2>Giới thiệu</h2>
+    <p>Website này chỉ dùng <b>HTML + CSS + JavaScript</b>, phù hợp để học web cơ bản hoặc demo.</p>
+  </div>
+
+  <div class="card" id="contact">
+    <h2>Liên hệ</h2>
+    <p>Email: example@email.com</p>
+    <p>Facebook: facebook.com/example</p>
+  </div>
+</main>
+
+<footer>
+  © 2026 - Website đơn giản
+</footer>
+
+</body>
+</html>
